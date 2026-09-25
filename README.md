@@ -1,4 +1,4 @@
-# 🚗 Sistema de Gestão de Oficina - Wireframes & Protótipo
+# Sistema de Gestão de Oficina - Wireframes & Protótipo
 
 Projeto desenvolvido a partir de 8 User Stories para otimização do atendimento e gestão de ordens de serviço.
 
@@ -6,12 +6,12 @@ Projeto desenvolvido a partir de 8 User Stories para otimização do atendimento
 
 ## 🔗 Links do Figma
 
-* 🎨 **Arquivo de Design (Wireframes):** [Ver projeto no Figma](https://www.figma.com/design/Z8dEX9KJsuGR7TwYFpxTNZ/oficina?node-id=0-1&t=75KKMT3Tir5XDcpz-1)
-* 🚀 **Protótipo Interativo (Navegável):** [Executar Protótipo](https://www.figma.com/proto/Z8dEX9KJsuGR7TwYFpxTNZ/oficina?node-id=4-3&p=f&t=raYmocaeMxpYCXky-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A3)
+ **Arquivo de Design (Wireframes):** [Ver projeto no Figma](https://www.figma.com/design/Z8dEX9KJsuGR7TwYFpxTNZ/oficina?node-id=0-1&t=75KKMT3Tir5XDcpz-1)
+ **Protótipo Interativo (Navegável):** [Executar Protótipo](https://www.figma.com/proto/Z8dEX9KJsuGR7TwYFpxTNZ/oficina?node-id=4-3&p=f&t=raYmocaeMxpYCXky-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A3)
 
 ---
 
-## 🗺️ Mapeamento das User Stories
+##  Mapeamento das User Stories
 
 O protótipo é composto por 7 telas, cada uma cobrindo uma ou mais User Stories:
 
@@ -40,7 +40,7 @@ Tela 5 ──[Registrar Pagamento]──▶ Tela 6 (Sucesso / NF)
 
 ---
 
-## 🧩 Componentes Base (Design System)
+##  Componentes Base (Design System)
 
 * **Button** — variantes `Primary` e `Secondary`
 * **Text Field** — campo com label + placeholder
@@ -50,7 +50,7 @@ Tela 5 ──[Registrar Pagamento]──▶ Tela 6 (Sucesso / NF)
 
 ---
 
-## 📋 Registro de Melhorias
+##  Registro de Melhorias
 
 | Data | Tela / Elemento | Problema Inicial | Melhoria / Solução Aplicada | Justificativa (US) |
 | :--- | :--- | :--- | :--- | :--- |
