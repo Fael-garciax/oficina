@@ -61,3 +61,64 @@ Tela 5 ──[Registrar Pagamento]──▶ Tela 6 (Sucesso / NF)
 | DD/MM | Pagamento (Tela 5) | Não havia forma clara de escolher o método de pagamento. | Opções PIX / Cartão / Dinheiro em botões grandes + validação do valor. | **US7:** recepcionista baixa o pagamento rápido e sem erro. |
 
 > Esta tabela também está reproduzida dentro do próprio arquivo Figma, como um frame de documentação ("Registro de Melhorias") logo abaixo das telas.
+
+---
+
+## 🏛️ Arquitetura em Camadas e MVC
+
+Refatoração da funcionalidade de cadastro para o padrão de arquitetura em camadas e MVC, isolando responsabilidades e regras de negócio.
+
+### 1. User Story Selecionada
+* **US6 — Cadastrar novos clientes e veículos** (Correspondente à *Tela 2 — Novo Cadastro* do Protótipo).
+* **Motivação da escolha:** O cadastro de clientes e veículos é a porta de entrada para as operações essenciais da oficina (agendamentos, ordens de serviço, orçamentos e pagamentos). Representa com clareza o fluxo completo de entrada de dados, validações de negócio e persistência isolada.
+
+### 2. Diagrama da Arquitetura
+
+Fluxo básico em camadas (Controller → Service → Repository):
+
+```mermaid
+flowchart LR
+    UI["Cliente / UI"] --> Controller["Controller\n(ClienteController)"]
+    Controller --> Service["Service\n(ClienteService)"]
+    Service --> Repository["Repository\n(ClienteRepository)"]
+    Repository --> Banco[("Banco de Dados")]
+```
+
+### 3. Estrutura de Pastas e Responsabilidades das Camadas
+
+A estrutura foi organizada seguindo a separação de responsabilidades descrita no material didático:
+
+```
+src/main/java/com/oficina/
+├── OficinaApplication.java        # Ponto de inicialização Spring Boot
+├── controller/                    # Endpoints HTTP (enxutos, sem regra de negócio)
+│   └── ClienteController.java
+├── service/                       # Regras de negócio e orquestração de casos de uso
+│   └── ClienteService.java
+├── repository/                    # Abstração de persistência e acesso a dados
+│   ├── ClienteRepository.java
+│   └── VeiculoRepository.java
+├── model/                         # Entidades de domínio (Cliente, Veiculo)
+│   ├── Cliente.java
+│   └── Veiculo.java
+├── dto/                           # Contratos de transferência de dados (Request / Response)
+│   ├── ClienteRequestDTO.java
+│   ├── ClienteResponseDTO.java
+│   └── VeiculoDTO.java
+└── exception/                     # Exceções de domínio e tratamento global de erros
+    ├── CpfDuplicadoException.java
+    ├── CpfInvalidoException.java
+    ├── PlacaInvalidaException.java
+    ├── ErrorResponse.java
+    └── GlobalExceptionHandler.java
+```
+
+| Camada | Responsabilidade Principal | O que foi evitado |
+| :--- | :--- | :--- |
+| **Controller** | Receber requisição HTTP, validar sintaxe básica de entrada e devolver status/payload apropriado. | Regras de negócio, cálculos, acessos diretos a banco de dados. |
+| **Service** | Orquestrar o caso de uso, validar CPF duplicado, integridade de veículos e gerenciar transações. | Acoplamento com detalhes HTTP (HttpServletRequest, ResponseStatus direto no código). |
+| **Repository** | Interface declarativa de persistência com Spring Data JPA. | Regras de negócio ou lógicas da aplicação. |
+| **Model / Domain** | Representar entidades do negócio com seus comportamentos essenciais. | Conhecimento sobre UI ou detalhes de apresentação. |
+| **DTO** | Proteger entidades internas, expondo apenas os dados necessários no tráfego da API. | Expor detalhes de persistência ou anotações internas. |
+| **Exception** | Centralizar e padronizar o tratamento de falhas e erros de negócio via `@RestControllerAdvice`. | Tratar exceções manualmente em blocos try/catch nos Controllers. |
+
